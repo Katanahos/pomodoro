@@ -16,29 +16,20 @@ export const initControl = () => {
   btnStart.addEventListener("click", start);
   btnStop.addEventListener("click", stop);
   changeTimer();
-
   showTime(state.timeLeft);
 };
 
 const changeTimer = () => {
   for (let i = 0; i < btnsNavigation.length; i++) {
     btnsNavigation[i].addEventListener("click", () => {
-      removeActive(btnsNavigation);
-      btnsNavigation[i].classList.add("navigation__btn_active");
-      state.condition = btnsNavigation[i].dataset.use;
-      state.timeLeft = state[state.condition] * 60;
-      showTime(state.timeLeft);
+      changeActiveBtn(btnsNavigation[i].dataset.use);
     });
   }
 };
 
-const removeActive = ([]) => {
-  for (let i = 0; i < btnsNavigation.length; i++) {
-    btnsNavigation[i].classList.remove("navigation__btn_active");
-  }
-};
-
 const changeActiveBtn = (dataUse) => {
+  state.condition = dataUse;
+  stop();
   for (let i = 0; i < btnsNavigation.length; i++) {
     if (btnsNavigation[i].dataset.use === dataUse) {
       btnsNavigation[i].classList.add("navigation__btn_active");
